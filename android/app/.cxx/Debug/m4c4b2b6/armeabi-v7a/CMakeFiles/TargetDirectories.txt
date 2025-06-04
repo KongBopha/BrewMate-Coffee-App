@@ -1,0 +1,2 @@
+D:/Mobile/Mobile_project/real/BrewMate-Coffee-App/android/app/.cxx/Debug/m4c4b2b6/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/Mobile/Mobile_project/real/BrewMate-Coffee-App/android/app/.cxx/Debug/m4c4b2b6/armeabi-v7a/CMakeFiles/rebuild_cache.dir
