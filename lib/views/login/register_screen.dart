@@ -1,10 +1,32 @@
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _LoginScreenState();
+}
+
+// Define the tickBox widget
+class MyCheckbox extends StatefulWidget {
+  @override
+  _MyCheckboxState createState() => _MyCheckboxState();
+}
+
+class _MyCheckboxState extends State<MyCheckbox> {
+  bool isChecked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Checkbox(
+      value: isChecked,
+      onChanged: (bool? newValue) {
+        setState(() {
+          isChecked = newValue ?? false;
+        });
+      },
+    );
+  }
 }
 
 // PasswordField widget to handle password input with visibility toggle
@@ -13,8 +35,10 @@ class PasswordField extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<RegisterScreen> {
   bool _obscureText = true;
+  bool isChecked = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,12 +53,12 @@ class _LoginScreenState extends State<LoginScreen> {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding:
-                  EdgeInsets.only(top: 120, left: 40, right: 40, bottom: 80),
+                  EdgeInsets.only(top: 70, left: 40, right: 40, bottom: 30),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Login to your account.',
+                    'Create your new account.',
                     style: TextStyle(
                         fontSize: 32,
                         color: Colors.white,
@@ -42,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    'Please sign in to your account.',
+                    'Create an account to start looking for the food you like.',
                     style: TextStyle(fontSize: 12, color: Colors.grey[200]),
                   ),
                   SizedBox(height: 10),
@@ -64,6 +88,29 @@ class _LoginScreenState extends State<LoginScreen> {
                           contentPadding:
                               EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                           hintText: 'Enter email',
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Column(
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Username',
+                          style: TextStyle(fontSize: 16, color: Colors.white)),
+                      SizedBox(height: 3),
+                      TextField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                          contentPadding:
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          hintText: 'Enter username',
                         ),
                       ),
                     ],
@@ -105,18 +152,44 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   SizedBox(height: 20),
-                  Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    // crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      TextButton(
-                        onPressed: () {},
-                        child: Text('Forgot Password?',
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.orange[500],
-                                fontWeight: FontWeight.bold)),
+                      Checkbox(
+                        value: isChecked,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            isChecked = value ?? false;
+                          });
+                        },
+                        activeColor: Colors.orange[500],
                       ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text('I agree to the',
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.white)),
+                              Text('Terms of Service',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.orange[500],
+                                      fontWeight: FontWeight.bold)),
+                              Text(' and ',
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.white)),
+                            ],
+                          ),
+                          Text('Privacy Policy',
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.orange[500],
+                                  fontWeight: FontWeight.bold)),
+                        ],
+                      )
                     ],
                   ),
                   SizedBox(height: 10),
@@ -125,17 +198,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.orange[500],
                       padding:
-                          EdgeInsets.symmetric(horizontal: 130, vertical: 5),
+                          EdgeInsets.symmetric(horizontal: 120, vertical: 3),
                     ),
                     child: Text(
-                      'Login',
+                      'Register',
                       style: TextStyle(
                         color: Colors.white,
                         height: 3,
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -182,7 +255,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  // SizedBox(height: 3),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -192,10 +265,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/register');
+                          Navigator.pushReplacementNamed(context, '/login');
                         },
                         child: Text(
-                          'Sign Up',
+                          'Sign In',
                           style: TextStyle(
                               fontSize: 12,
                               color: Colors.orange[500],
