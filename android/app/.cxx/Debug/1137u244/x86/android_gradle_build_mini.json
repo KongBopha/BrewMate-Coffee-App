@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "D:\\camcyber\\pos\\mobile\\lib\\flutter\\flutter\\packages\\flutter_tools\\gradle\\src\\main\\groovy\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\ASUS TUF\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "D:\\Mobile\\Mobile_project\\real\\BrewMate-Coffee-App\\android\\app\\.cxx\\Debug\\1137u244\\x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\ASUS TUF\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "D:\\Mobile\\Mobile_project\\real\\BrewMate-Coffee-App\\android\\app\\.cxx\\Debug\\1137u244\\x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}
