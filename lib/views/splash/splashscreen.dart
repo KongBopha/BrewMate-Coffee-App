@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         ),
                         TextSpan(
                           text:
-                              'All the best of coffee taste with their top menu waiting for you. They can’t wait for your order!!',
+                              'All the best of coffee taste with their top menu waiting for you. They can’t wait for your orderr!!',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.white,
