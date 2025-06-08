@@ -1,4 +1,6 @@
 import 'package:brewmate_coffee_app/views/splash/splashscreen.dart';
+import 'package:brewmate_coffee_app/views/login/login_screen.dart';
+import 'package:brewmate_coffee_app/views/login/register_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
