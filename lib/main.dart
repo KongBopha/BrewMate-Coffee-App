@@ -1,6 +1,10 @@
+import 'package:brewmate_coffee_app/views/home/home_screen.dart';
 import 'package:brewmate_coffee_app/views/splash/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:brewmate_coffee_app/views/login/login_screen.dart';
+import 'package:brewmate_coffee_app/views/login/register_screen.dart';
+import 'package:brewmate_coffee_app/widgets/bodycontainer.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginScreen(),
+      home: const Bodycontainer(),
     );
   }
 }
