@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "328586673369",
+    "project_id": "ecommerce-authen",
+    "storage_bucket": "ecommerce-authen.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:328586673369:android:dddf4c12152011b4b2d2c8",
+        "android_client_info": {
+          "package_name": "com.example.brewmate_coffee_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "328586673369-khf7e3pktehnur3g1mq21gb5sfpvpfnn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3x9FH2oJbYSPMugukWRr2MUgaFPseECs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "328586673369-khf7e3pktehnur3g1mq21gb5sfpvpfnn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
