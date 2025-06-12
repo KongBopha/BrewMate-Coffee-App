@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   flutter_native_splash: ^2.4.1
   firebase_core: ^3.14.0
+  cloud_firestore: ^5.6.9
+  provider: ^6.1.5
 
 dev_dependencies:
   flutter_lints: ^3.0.0
@@ -73,6 +75,8 @@ flutter:
     - assets/google.png
     - assets/facebook.png
     - assets/apple.png
+    - assets/banner.png
+    - assets/products/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

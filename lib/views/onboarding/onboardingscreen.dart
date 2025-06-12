@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:brewmate_coffee_app/provider/productsprovider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -8,10 +10,13 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
+
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    final provider = Provider.of<ProductProvider>(context, listen: false);
+    provider.uploadInitialProducts(); // Upload initial products
     Timer(
       const Duration(seconds: 3),
       () {
