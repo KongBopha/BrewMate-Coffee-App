@@ -1,3 +1,4 @@
+import 'package:brewmate_coffee_app/views/login/register_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -192,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/register');
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen()));
                         },
                         child: Text(
                           'Sign Up',
