@@ -1,100 +1,65 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:brewmate_coffee_app/models/products.dart';
 
 class ProductProvider with ChangeNotifier {
-  List<Product> _allProducts = [];
-  List<Product> _filteredProducts = [];
+  final CollectionReference _productCollection =
+      FirebaseFirestore.instance.collection('products');
 
-  List<Product> get allProducts => _allProducts;
-  List<Product> get filteredProducts => _filteredProducts;
+  final List<Product> _allProducts = [];
+  List<Product> _displayedProducts = [];
 
-  /// Upload initial products to Firestore (call only once)
-  Future<void> uploadInitialProducts() async {
-    final List<Product> initialProducts = [
-      Product(
-        name: 'Espresso',
-        description: 'Strong and bold coffee shot',
-        price: 3.50,
-        rating: 4.5,
-        deliveryCost: 0.50,
-        size: 'Small',
-        imageUrl: 'assets/products/capuccino.png',
-        category: 'Espresso',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-      ),
-      Product(
-        name: 'Latte',
-        description: 'Creamy milk coffee',
-        price: 4.00,
-        rating: 4.3,
-        deliveryCost: 0.70,
-        size: 'Medium',
-        imageUrl: 'assets/products/capuccino.png',
-        category: 'Iced Latte',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-      ),
-      Product(
-        name: 'Cappuccino',
-        description: 'Rich and foamy delight',
-        price: 4.50,
-        rating: 4.7,
-        deliveryCost: 0.60,
-        size: 'Large',
-        imageUrl: 'assets/products/capuccino.png',
-        category: 'Hot Coffee',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-      ),
-    ];
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
+  List<Product> get allProducts => List.unmodifiable(_displayedProducts);
+
+  /// Fetch all products from Firestore (initial load or 'All' tab)
+  Future<void> fetchAllProducts() async {
+    _isLoading = true;
+    notifyListeners();
 
     try {
-      final collection = FirebaseFirestore.instance.collection('products');
+      final snapshot = await _productCollection.get();
+      _allProducts.clear();
+      _displayedProducts.clear();
 
-      for (var product in initialProducts) {
-        await collection.add(product.toJson());
+      for (var doc in snapshot.docs) {
+        final product = Product.fromFirestore(doc);
+        _allProducts.add(product);
       }
 
-      print(" Initial products uploaded successfully.");
+      // Set displayed to all
+      _displayedProducts = List.from(_allProducts);
     } catch (e) {
-      print("Failed to upload initial products: $e");
+      print('Error fetching products: $e');
     }
+
+    _isLoading = false;
+    notifyListeners();
   }
 
-  /// Fetch all products from Firestore and store them
-  Future<void> fetchProducts() async {
-    try {
-      final snapshot = await FirebaseFirestore.instance
-          .collection('products')
-          .orderBy('createdAt', descending: true)
-          .get();
-
-      _allProducts = snapshot.docs.map((doc) {
-        final data = doc.data();
-        return Product.fromJson(data);
-      }).toList();
-
-      // Show all products initially
-      _filteredProducts = _allProducts;
-
+  /// Filter products by category ID
+  Future<void> fetchProductsByCategoryId(String categoryId) async {
+    if (categoryId.isEmpty) {
+      // 'All' tab clicked — show all loaded products
+      _displayedProducts = List.from(_allProducts);
       notifyListeners();
-    } catch (e) {
-      print('❌ Error fetching products: $e');
+      return;
     }
-  }
 
-  /// Filter products by user-selected category
-  void filterProductsByCategory(String category) {
-    if (category.toLowerCase() == 'all') {
-      _filteredProducts = _allProducts;
-    } else {
-      _filteredProducts = _allProducts
-          .where((product) =>
-              product.category?.toLowerCase() == category.toLowerCase())
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      _displayedProducts = _allProducts
+          .where((product) => product.categoryId == categoryId)
           .toList();
+    } catch (e) {
+      print('Error filtering products: $e');
     }
+
+    _isLoading = false;
     notifyListeners();
   }
 }
