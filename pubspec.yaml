@@ -39,6 +39,9 @@ dependencies:
   firebase_core: ^3.14.0
   cloud_firestore: ^5.6.9
   provider: ^6.1.5
+  badges: ^3.1.2
+  flutter_svg: ^2.1.0
+  firebase_auth: ^5.6.0
 
 dev_dependencies:
   flutter_lints: ^3.0.0
@@ -47,7 +50,7 @@ dev_dependencies:
     sdk: flutter
 flutter_native_splash:
   color: "#ffffff"
-  image: assets/splashcoffee.png
+  image: assets/appLogo.png
   android: true
   ios: true
 
@@ -76,7 +79,9 @@ flutter:
     - assets/facebook.png
     - assets/apple.png
     - assets/banner.png
+    - assets/appLogo.png
     - assets/products/
+    - assets/icons/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
