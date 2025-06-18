@@ -485,9 +485,9 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
       ),
       bottomNavigationBar: Container(
           width: 100,
-          // height: 30,
+          height: 80,
           color: const Color.fromARGB(255, 227, 227, 228),
-          padding: EdgeInsets.only(),
+          // padding: EdgeInsets.all(),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
