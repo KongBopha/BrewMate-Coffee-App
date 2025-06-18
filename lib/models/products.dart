@@ -1,47 +1,50 @@
 // product_model.dart
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Product {
+  final String id; // Unique identifier for the product
   final String name;
   final String? description;
   final double price;
   final double rating;
-  final double deliveryCost;
   final String size;
   final String? imageUrl;
   final bool isAvailable;
-  final String? category;
+  final String categoryId; 
   final List<String>? customizations;  
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
   Product({
+    required this.id,
     required this.name,
     this.description,
     required this.price,
     required this.rating,
-    required this.deliveryCost,
     required this.size,
     this.imageUrl,
     this.isAvailable = true,
-    this.category,
+    required this.categoryId,
     this.customizations,
     this.createdAt,
     this.updatedAt,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) {
+  factory Product.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
     return Product(
-      name: json['name'] ?? '',
-      description: json['description'],
-      price: (json['price'] as num).toDouble(),
-      rating: (json['rating'] as num).toDouble(),
-      deliveryCost: (json['deliveryCost'] as num).toDouble(),
-      size: json['size'] ?? '',
-      imageUrl: json['imageUrl'],
-      isAvailable: json['isAvailable'] ?? true,
-      category: json['category'],
-      customizations: (json['customizations'] as List<dynamic>?)?.map((e) => e.toString()).toList(),
-      createdAt: json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
-      updatedAt: json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
+      id: doc.id,
+      name: data['name'] ?? '',
+      description: data['description'],
+      price: (data['price'] as num).toDouble(),
+      rating: (data['rating'] as num).toDouble(),
+      size: data['size'] ?? '',
+      imageUrl: data['imageUrl'],
+      isAvailable: data['isAvailable'] ?? true,
+      categoryId: data['categoryId'] ?? '',
+      customizations: (data['customizations'] as List<dynamic>?)?.map((e) => e.toString()).toList(),
+      createdAt: data['createdAt'] != null ? DateTime.parse(data['createdAt']) : null,
+      updatedAt: data['updatedAt'] != null ? DateTime.parse(data['updatedAt']) : null,
     );
   }
 
@@ -51,11 +54,10 @@ class Product {
       'description': description,
       'price': price,
       'rating': rating,
-      'deliveryCost': deliveryCost,
       'size': size,
       'imageUrl': imageUrl,
       'isAvailable': isAvailable,
-      'category': category,
+      'categoryId': categoryId,
       'customizations': customizations,
       'createdAt': createdAt?.toIso8601String(),
       'updatedAt': updatedAt?.toIso8601String(),
