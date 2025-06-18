@@ -5,6 +5,7 @@ import 'package:brewmate_coffee_app/views/login/login_screen.dart';
 import 'package:brewmate_coffee_app/views/login/register_screen.dart';
 import 'package:brewmate_coffee_app/widgets/bodycontainer.dart';
 import 'package:flutter/material.dart';
+import 'package:brewmate_coffee_app/views/detail/Detail_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Bodycontainer(),
+      home: const DetailScreen(),
     );
   }
 }
