@@ -39,7 +39,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.brewmate_coffee_app"
-        minSdk = flutter.minSdkVersion
+        minSdkVersion 23
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
