@@ -30,7 +30,7 @@ void main() async {
         debugShowCheckedModeBanner: false,
         initialRoute: '/',  
         routes: {
-          '/': (context) => SplashScreen(),
+          '/': (context) => const CheckoutScreen(),
           '/home': (context) => const CustomBottomNavPage(),
           '/login': (context) => const LoginScreen(),
           '/register': (context) => const RegisterScreen(),
