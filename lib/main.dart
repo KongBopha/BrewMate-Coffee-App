@@ -4,6 +4,7 @@ import 'package:brewmate_coffee_app/provider/datauploader.dart';
 import 'package:brewmate_coffee_app/provider/productsprovider.dart';
 import 'package:brewmate_coffee_app/provider/userprovider.dart';
 import 'package:brewmate_coffee_app/views/screens/checkoutscreen.dart';
+import 'package:brewmate_coffee_app/views/screens/Detail_screen.dart';
 import 'package:brewmate_coffee_app/views/screens/home_screen.dart';
 import 'package:brewmate_coffee_app/views/screens/splashscreen.dart';
 import 'package:brewmate_coffee_app/views/auth/login_screen.dart';
@@ -28,13 +29,12 @@ void main() async {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/',  
+        initialRoute: '/',
         routes: {
           '/': (context) => const CheckoutScreen(),
           '/home': (context) => const CustomBottomNavPage(),
           '/login': (context) => const LoginScreen(),
           '/register': (context) => const RegisterScreen(),
-          
         },
       ),
     ),

@@ -1,8 +1,9 @@
-
 import 'package:brewmate_coffee_app/views/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:badges/badges.dart' as badges;
+// ignore: depend_on_referenced_packages
+// import 'package:brewmate_coffee_app/views/screens/Detail_screen.dart';
 // import '../screens/home_screen.dart';
 // import '../screens/cart_screen.dart';
 // import '../screens/favorites_screen.dart';
@@ -29,6 +30,7 @@ class _CustomBottomNavPageState extends State<CustomBottomNavPage> {
 
   final List<Widget> _pages = const [
     HomeScreen(),
+    // DetailScreen(),
     // CartScreen(),
     // FavoritesScreen(),
     // NotificationScreen(),
@@ -83,9 +85,11 @@ class _CustomBottomNavPageState extends State<CustomBottomNavPage> {
                         ? badges.Badge(
                             badgeContent: const Text(
                               '2',
-                              style: TextStyle(color: Colors.white, fontSize: 10),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 10),
                             ),
-                            position: badges.BadgePosition.topEnd(top: -6, end: -6),
+                            position:
+                                badges.BadgePosition.topEnd(top: -6, end: -6),
                             badgeStyle: const badges.BadgeStyle(
                               badgeColor: Colors.red,
                               padding: EdgeInsets.all(5),
@@ -114,7 +118,8 @@ class _CustomBottomNavPageState extends State<CustomBottomNavPage> {
                     style: TextStyle(
                       fontSize: 12,
                       color: isSelected ? Colors.orange : Colors.grey.shade600,
-                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      fontWeight:
+                          isSelected ? FontWeight.bold : FontWeight.normal,
                     ),
                   ),
                 ],
