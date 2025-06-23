@@ -78,6 +78,9 @@ flutter:
     - assets/google.png
     - assets/facebook.png
     - assets/apple.png
+    - assets/detailpage/caff-01.png
+    - assets/detailpage/caff-02.png
+    - assets/detailpage/caff-03.png
     - assets/ac.png
     - assets/aba.png
     - assets/wing.png
