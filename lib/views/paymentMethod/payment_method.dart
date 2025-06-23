@@ -30,17 +30,18 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                   height: 210,
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 60,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(height: 60),
-                          Icon(Icons.arrow_back_ios),
+                          const SizedBox(height: 60),
+                          const Icon(Icons.arrow_back_ios),
                           TextButton(
                             onPressed: () {},
-                            child: Text(
+                            // ignore: sort_child_properties_last
+                            child: const Text(
                               'Choose Payment Method',
                               style: TextStyle(
                                 fontSize: 12,
@@ -50,23 +51,23 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                             ),
                             style: ButtonStyle(
                               minimumSize: MaterialStateProperty.all<Size>(
-                                  Size(270, 40)),
+                                  const Size(270, 40)),
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   Colors.white), // width: 200, height: 50
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 6),
-                      Text(
+                      const SizedBox(height: 6),
+                      const Text(
                         '1.6',
                         style: TextStyle(
                             fontSize: 32,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 6),
-                      Text(
+                      const SizedBox(height: 6),
+                      const Text(
                         '= 6000 ',
                         style: TextStyle(fontSize: 12, color: Colors.white),
                       ),
@@ -74,7 +75,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                       border: Border.all(
                     color: Colors.grey,
@@ -84,10 +85,10 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                     // children: [
                     //   Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
-                      Text(
+                      const Text(
                         'Support Online Payment',
                         style: TextStyle(
                             fontSize: 18,
@@ -96,7 +97,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                       ),
                       Container(
                         // padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
                               color: Colors.grey,
@@ -105,7 +106,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -114,7 +115,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                 width: 40,
                                 height: 40,
                               ),
-                              Column(
+                              const Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
@@ -148,7 +149,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                       ),
                       Container(
                         // padding: EdgeInsets.all(6),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
                               color: Colors.grey,
@@ -157,7 +158,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -166,7 +167,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                 width: 40,
                                 height: 40,
                               ),
-                              Column(
+                              const Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
@@ -200,7 +201,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                       ),
                       Container(
                         // padding: EdgeInsets.all(6),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
                               color: Colors.grey,
@@ -209,7 +210,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -218,7 +219,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                 width: 40,
                                 height: 40,
                               ),
-                              Column(
+                              const Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
@@ -252,7 +253,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                       ),
                       Container(
                         // padding: EdgeInsets.all(6),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
                               color: Colors.grey,
@@ -261,7 +262,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -270,7 +271,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                 width: 40,
                                 height: 40,
                               ),
-                              Column(
+                              const Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
@@ -303,7 +304,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -312,7 +313,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                               width: 40,
                               height: 40,
                             ),
-                            Column(
+                            const Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
@@ -347,18 +348,18 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                     // ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                       border: Border.all(
                     color: Colors.grey,
                   )),
                   child: Column(
                     children: [
-                      Text(
+                      const Text(
                         'Offline Payment',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
@@ -366,11 +367,11 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.delivery_dining_outlined,
                             size: 40,
                           ),
-                          Column(
+                          const Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
@@ -401,17 +402,17 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 TextButton(
                   onPressed: () {},
                   style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all<Size>(Size(270, 50)),
+                    minimumSize: MaterialStateProperty.all<Size>(const Size(270, 50)),
                     backgroundColor: MaterialStateProperty.all<Color>(
                         Colors.orange), // width: 200, height: 50
                   ),
-                  child: Text(
+                  child: const Text(
                     'Confirm',
                     style: TextStyle(
                         color: Colors.white,
