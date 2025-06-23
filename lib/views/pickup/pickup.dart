@@ -81,7 +81,7 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.only(left: 0, right: 0),
+              padding: const EdgeInsets.only(left: 0, right: 0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -90,7 +90,7 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                     height: 300,
                     width: 400,
                     child: Padding(
-                      padding: EdgeInsets.only(top: 70, left: 20, right: 20),
+                      padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
                       child: Column(
                         children: [
                           Row(
@@ -101,9 +101,9 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                               const SizedBox(
                                 width: 12,
                               ),
-                              Column(
+                              const Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
+                                children: [
                                   Text(
                                     'Welcome to BrewMate',
                                     style: TextStyle(
@@ -142,7 +142,7 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Container(
@@ -150,24 +150,24 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                             height: 150,
                             width: 330,
                             child: Padding(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Delivery Address',
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
-                                  Text('2nd Door Emi'),
-                                  SizedBox(
+                                  const Text('2nd Door Emi'),
+                                  const SizedBox(
                                     height: 10,
                                   ),
-                                  Text(
+                                  const Text(
                                     'Tuol Kork, Phnom Penh',
                                     style: TextStyle(
                                       fontSize: 12,
@@ -175,7 +175,7 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                                       height: 1.2,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Row(
@@ -192,7 +192,7 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 10, vertical: 5),
                                           ),
-                                          child: Row(
+                                          child: const Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
@@ -206,7 +206,7 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                                               ),
                                             ],
                                           )),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       TextButton(
@@ -220,7 +220,7 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 10, vertical: 5),
                                           ),
-                                          child: Row(
+                                          child: const Row(
                                             children: [
                                               Icon(Icons.note_add_outlined),
                                               SizedBox(
@@ -242,7 +242,7 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
@@ -253,12 +253,12 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Container(
-                          padding: EdgeInsets.only(right: 45, left: 45),
+                          padding: const EdgeInsets.only(right: 45, left: 45),
                           child: Row(
                             children: [
                               TextButton(
                                   onPressed: () {},
-                                  child: Text(
+                                  child: const Text(
                                     'Delivery',
                                     style: TextStyle(
                                         fontSize: 16,
@@ -269,13 +269,13 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(right: 45, left: 45),
+                          padding: const EdgeInsets.only(right: 45, left: 45),
                           color: Colors.orange,
                           child: Row(
                             children: [
                               TextButton(
                                   onPressed: () {},
-                                  child: Text(
+                                  child: const Text(
                                     'Pick Up',
                                     style: TextStyle(
                                         fontSize: 16,
@@ -288,7 +288,7 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -314,10 +314,10 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                                       height: 40,
                                       fit: BoxFit.cover,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
-                                    Column(
+                                    const Column(
                                       children: [
                                         SizedBox(
                                           height: 17,
@@ -339,7 +339,7 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                                   ],
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 12,
                               ),
                               Container(
@@ -361,14 +361,14 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         Container(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           color: Colors.white,
                           height: 70,
-                          child: Column(
+                          child: const Column(
                             children: [
                               Text(
                                 'Payment Summary',
@@ -388,16 +388,16 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 2,
                         ),
                         Container(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           color: Colors.white,
                           height: 170,
                           child: Column(
                             children: [
-                              Row(
+                              const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -405,7 +405,7 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                                   Text('1.50'),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Row(
@@ -415,11 +415,11 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                                       style: TextButton.styleFrom(
                                         backgroundColor: Colors.orange,
                                       ),
-                                      child: Text(
+                                      child: const Text(
                                         'Choose Payment Method',
                                         style: TextStyle(color: Colors.white),
                                       )),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 30,
                                   ),
                                   Container(
@@ -433,18 +433,18 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                                                     const Color.fromARGB(
                                                         255, 132, 241, 135)),
                                           ),
-                                          child: Text('Cash'),
+                                          child: const Text('Cash'),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 17,
                                         ),
-                                        Text('1.50'),
+                                        const Text('1.50'),
                                       ],
                                     ),
                                   )
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 15,
                               ),
                               Row(
@@ -458,9 +458,9 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
                                       style: TextButton.styleFrom(
                                         backgroundColor: Colors.orange,
                                         // shape: const CircleBorder(),
-                                        padding: EdgeInsets.all(2),
+                                        padding: const EdgeInsets.all(2),
                                       ),
-                                      child: Text(
+                                      child: const Text(
                                         'Plase Order',
                                         style: TextStyle(
                                             fontSize: 16,
@@ -491,13 +491,13 @@ class _PickUpScreenScreenState extends State<PickUpScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.mail_outline)),
+              IconButton(onPressed: () {}, icon: const Icon(Icons.mail_outline)),
               IconButton(
-                  onPressed: () {}, icon: Icon(Icons.local_drink_outlined)),
-              IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
+                  onPressed: () {}, icon: const Icon(Icons.local_drink_outlined)),
+              IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border)),
               IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.notifications_active_outlined))
+                  icon: const Icon(Icons.notifications_active_outlined))
             ],
           )),
     );

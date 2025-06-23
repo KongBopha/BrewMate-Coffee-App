@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -26,7 +28,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
             // mainAxisAlignment: MainAxisAlignment.,
             children: [
               Container(
-                padding: EdgeInsets.only(top: 35, left: 10),
+                padding: const EdgeInsets.only(top: 35, left: 10),
                 color: Colors.orange,
                 height: 110,
                 child: Row(
@@ -35,8 +37,8 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
                     //   height: 30,
                     // ),
                     IconButton(
-                        onPressed: () {}, icon: Icon(Icons.arrow_back_ios)),
-                    Text(
+                        onPressed: () {}, icon: const Icon(Icons.arrow_back_ios)),
+                    const Text(
                       'My Favorite',
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -44,18 +46,18 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Text(
+              const Text(
                 '16/12/2025',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 color: const Color.fromARGB(255, 244, 242, 242),
                 // height: 20,
                 width: 350,
@@ -70,10 +72,10 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
                             width: 45,
                             height: 45,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
-                          Column(
+                          const Column(
                             children: [
                               Text(
                                 'Capocino',
@@ -90,7 +92,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
                       ),
                     ),
                     Container(
-                      child: Row(
+                      child: const Row(
                         children: [
                           Text(
                             '1.5',
@@ -109,11 +111,11 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 color: const Color.fromARGB(255, 244, 242, 242),
                 // height: 20,
                 width: 350,
@@ -128,10 +130,10 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
                             width: 45,
                             height: 45,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
-                          Column(
+                          const Column(
                             children: [
                               Text(
                                 'Capocino',
@@ -148,7 +150,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
                       ),
                     ),
                     Container(
-                      child: Row(
+                      child: const Row(
                         children: [
                           Text(
                             '1.5',
@@ -167,11 +169,11 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 color: const Color.fromARGB(255, 244, 242, 242),
                 // height: 20,
                 width: 350,
@@ -186,10 +188,10 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
                             width: 45,
                             height: 45,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
-                          Column(
+                          const Column(
                             children: [
                               Text(
                                 'Capocino',
@@ -206,7 +208,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
                       ),
                     ),
                     Container(
-                      child: Row(
+                      child: const Row(
                         children: [
                           Text(
                             '1.5',
