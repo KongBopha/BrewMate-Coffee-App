@@ -4,15 +4,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class OrderItems {
   final String orderId;
   final List<CartItem> items;
+  final double subtotal;
   final double totalPrice;
   final String status; // e.g. 'pending', 'completed'
   final DateTime createdAt;
   final double deliveryFee;
   final String deliveryOption; // 'pickup' or 'delivery'
-  final String? deliveryAddress; // null if pickup
+  final String? deliveryAddress;
+  final String? paymentMethod;
+   // null if pickup
 
   OrderItems({
     required this.orderId,
+    required this.subtotal,
     required this.items,
     required this.totalPrice,
     required this.status,
@@ -20,6 +24,7 @@ class OrderItems {
     required this.deliveryFee,
     required this.deliveryOption,
     this.deliveryAddress,
+    this.paymentMethod
   });
 
   Map<String, dynamic> toJson() => {
@@ -31,6 +36,8 @@ class OrderItems {
     'deliveryFee': deliveryFee,
     'deliveryOption': deliveryOption,
     'deliveryAddress': deliveryAddress,
+    'paymentmethod' : paymentMethod,
+    'subtotal': subtotal,
   };
 
   factory OrderItems.fromFirestore(DocumentSnapshot doc) {
@@ -40,12 +47,14 @@ class OrderItems {
       items: (data['items'] as List)
           .map((item) => CartItem.fromJson(item))
           .toList(),
+      subtotal: data['subtotal'],
       totalPrice: data['totalPrice'],
       status: data['status'],
       createdAt: DateTime.parse(data['createdAt']),
       deliveryFee: data['deliveryFee'] ?? 0.0,
       deliveryOption: data['deliveryOption'],
       deliveryAddress: data['deliveryAddress'],
+      paymentMethod: data['paymentmethod'],
     );
   }
 }
