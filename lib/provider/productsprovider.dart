@@ -62,4 +62,26 @@ class ProductProvider with ChangeNotifier {
     _isLoading = false;
     notifyListeners();
   }
+  Future<Product?> fetchProductbyId(String productId) async{
+    _isLoading = true;
+    notifyListeners();
+
+    try{
+      final doc= await _productCollection.doc(productId).get();
+      
+      if(doc.exists){
+        return Product.fromFirestore(doc);
+      }
+      else{
+        print('Product with ID $productId not found.');
+        return null;
+      }
+    }catch(e){
+      print('Error filtering products: $e');
+      throw Exception('Error fetching product by id: $e');
+    } finally {
+    _isLoading = false;
+    notifyListeners();
+  }
+  }
 }

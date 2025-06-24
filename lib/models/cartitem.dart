@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class CartItem {
   final String productId;   
   final String name;
-  late final int quantity;
+  int quantity;
   final double price;
   final String imageUrl;
 

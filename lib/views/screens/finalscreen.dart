@@ -20,7 +20,7 @@ class MyWidget extends StatelessWidget {
         ],
       ),
     ),
-    bottomNavigationBar: const CustomBottomNavPage(),
+     
     );
   }
 }
