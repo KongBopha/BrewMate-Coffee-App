@@ -62,20 +62,20 @@ class BrewMateAppBar extends StatelessWidget implements PreferredSizeWidget {
         onPressed: () => _getCurrentLocation(context),
       ),
       actions: [
-IconButton(
-  icon: const Icon(Icons.person_pin),
-  onPressed: () {
-    print("Person icon clicked");
-    final user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
-      print("Navigating to Register screen");
-      Navigator.pushNamed(context, '/register');
-    } else {
-      print("Navigating to Profile screen");
-      Navigator.pushNamed(context, '/profile');
-    }
-  },
-),
+      IconButton(
+        icon: const Icon(Icons.person_pin),
+        onPressed: () {
+          print("Person icon clicked");
+          final user = FirebaseAuth.instance.currentUser;
+          if (user == null) {
+            print("Navigating to Register screen");
+            Navigator.pushNamed(context, '/register');
+          } else {
+            print("Navigating to Profile screen");
+            Navigator.pushNamed(context, '/profile');
+          }
+        },
+      ),
 
       ],
       title: const Column(

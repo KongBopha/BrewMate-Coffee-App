@@ -22,6 +22,7 @@ void main() async {
 
   final cartItemProvider = CartItemProvider();
   await cartItemProvider.syncCartOnStart(); //
+  //await uploadSampleData();
 
   runApp(
     MultiProvider(

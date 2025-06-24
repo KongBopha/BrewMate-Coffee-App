@@ -1,430 +1,167 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:brewmate_coffee_app/provider/orderprovider.dart';
 
 class PaymentMethodScreen extends StatefulWidget {
-  const PaymentMethodScreen({super.key});
+  final double subtotal;
+
+  const PaymentMethodScreen({super.key, required this.subtotal});
 
   @override
   State<PaymentMethodScreen> createState() => _PaymentMethodScreenState();
 }
 
 class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
-  bool isClicked = false;
+  String? selectedMethod;
+
+  void _selectMethod(String method) {
+    setState(() {
+      selectedMethod = method;
+    });
+  }
+
+  void _confirmSelection() {
+    if (selectedMethod != null) {
+      Navigator.pop(context, selectedMethod);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select a payment method')),
+      );
+    }
+  }
+
+  Widget _buildPaymentOption({
+    required String label,
+    required String description,
+    required String assetPath,
+  }) {
+    return GestureDetector(
+      onTap: () => _selectMethod(label),
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: selectedMethod == label ? Colors.orange : Colors.grey.shade300,
+            width: 2,
+          ),
+          color: Colors.white,
+        ),
+        child: Row(
+          children: [
+            Image.asset(assetPath, width: 40, height: 40),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  Text(description, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.check_circle,
+              color: selectedMethod == label ? Colors.orange : Colors.grey,
+              size: 24,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final orderProvider = Provider.of<OrderProvider>(context);
+    final deliveryFee = orderProvider.deliveryFee;
+    final total = widget.subtotal + deliveryFee;
+
     return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          Align(
-            alignment: Alignment.bottomCenter,
-            // child: Padding(
-            // padding: EdgeInsets.only(left: 40, right: 40, bottom: 80),
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.,
-              children: [
-                Container(
-                  color: Colors.orange,
-                  height: 210,
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 60,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(height: 60),
-                          const Icon(Icons.arrow_back_ios),
-                          TextButton(
-                            onPressed: () {},
-                            // ignore: sort_child_properties_last
-                            child: const Text(
-                              'Choose Payment Method',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            style: ButtonStyle(
-                              minimumSize: MaterialStateProperty.all<Size>(
-                                  const Size(270, 40)),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white), // width: 200, height: 50
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 6),
-                      const Text(
-                        '1.6',
-                        style: TextStyle(
-                            fontSize: 32,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 6),
-                      const Text(
-                        '= 6000 ',
-                        style: TextStyle(fontSize: 12, color: Colors.white),
-                      ),
-                    ],
+      appBar: AppBar(
+        backgroundColor: Colors.orange,
+        title: const Text('Choose Payment Method'),
+        foregroundColor: Colors.white,
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              color: Colors.orange,
+              child: Column(
+                children: [
+                  const Text('Total Amount', style: TextStyle(color: Colors.white, fontSize: 16)),
+                  const SizedBox(height: 8),
+                  Text(
+                    '\$${total.toStringAsFixed(2)}',
+                    style: const TextStyle(fontSize: 28, color: Colors.white, fontWeight: FontWeight.bold),
                   ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                    color: Colors.grey,
-                  )),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    // children: [
-                    //   Row(
-                    children: [
-                      const SizedBox(
-                        height: 6,
-                      ),
-                      const Text(
-                        'Support Online Payment',
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Container(
-                        // padding: EdgeInsets.all(10),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Colors.grey,
-                              width: 1.0, // adjust thickness
-                            ),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                'assets/ac.png',
-                                width: 40,
-                                height: 40,
-                              ),
-                              const Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'ACLEDA PAY',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    'Tep to pay with ACLEDA mobile',
-                                    style: TextStyle(fontSize: 10),
-                                  ),
-                                ],
-                              ),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.check_circle,
-                                  color:
-                                      isClicked ? Colors.orange : Colors.grey,
-                                  size: 28,
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    isClicked = !isClicked; // Toggle the state
-                                  });
-                                },
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        // padding: EdgeInsets.all(6),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Colors.grey,
-                              width: 1.0, // adjust thickness
-                            ),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                'assets/aba.png',
-                                width: 40,
-                                height: 40,
-                              ),
-                              const Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'ABA PAY',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    'Tep to pay with ACLEDA mobile',
-                                    style: TextStyle(fontSize: 10),
-                                  ),
-                                ],
-                              ),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.check_circle,
-                                  color:
-                                      isClicked ? Colors.orange : Colors.grey,
-                                  size: 28,
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    isClicked = !isClicked; // Toggle the state
-                                  });
-                                },
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        // padding: EdgeInsets.all(6),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Colors.grey,
-                              width: 1.0, // adjust thickness
-                            ),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                'assets/wing.png',
-                                width: 40,
-                                height: 40,
-                              ),
-                              const Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'WING PAY',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    'Tep to pay with ACLEDA mobile',
-                                    style: TextStyle(fontSize: 10),
-                                  ),
-                                ],
-                              ),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.check_circle,
-                                  color:
-                                      isClicked ? Colors.orange : Colors.grey,
-                                  size: 28,
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    isClicked = !isClicked; // Toggle the state
-                                  });
-                                },
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        // padding: EdgeInsets.all(6),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Colors.grey,
-                              width: 1.0, // adjust thickness
-                            ),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                'assets/kanadia.png',
-                                width: 40,
-                                height: 40,
-                              ),
-                              const Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'CANADIA PAY',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    'Tep to pay with ACLEDA mobile',
-                                    style: TextStyle(fontSize: 10),
-                                  ),
-                                ],
-                              ),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.check_circle,
-                                  color:
-                                      isClicked ? Colors.orange : Colors.grey,
-                                  size: 28,
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    isClicked = !isClicked; // Toggle the state
-                                  });
-                                },
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Image.asset(
-                              'assets/vattanak.png',
-                              width: 40,
-                              height: 40,
-                            ),
-                            const Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'VATTANAK PAY',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'Tep to pay with ACLEDA mobile',
-                                  style: TextStyle(fontSize: 10),
-                                ),
-                              ],
-                            ),
-                            IconButton(
-                              icon: Icon(
-                                Icons.check_circle,
-                                color: isClicked ? Colors.orange : Colors.grey,
-                                size: 28,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  isClicked = !isClicked; // Toggle the state
-                                });
-                              },
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                    //   )
-                    // ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                    color: Colors.grey,
-                  )),
-                  child: Column(
-                    children: [
-                      const Text(
-                        'Offline Payment',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const Icon(
-                            Icons.delivery_dining_outlined,
-                            size: 40,
-                          ),
-                          const Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'CASH ON DELIVERY',
-                                style: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                'Tep here to pay offline with delivery',
-                                style: TextStyle(fontSize: 10),
-                              ),
-                            ],
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.check_circle,
-                              color: isClicked ? Colors.orange : Colors.grey,
-                              size: 28,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                isClicked = !isClicked; // Toggle the state
-                              });
-                            },
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                TextButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all<Size>(const Size(270, 50)),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        Colors.orange), // width: 200, height: 50
-                  ),
-                  child: const Text(
-                    'Confirm',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
-                  ),
-                )
-              ],
+                ],
+              ),
             ),
-            // ),
-          )
-        ],
+
+            const SizedBox(height: 16),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Online Payment', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            _buildPaymentOption(
+              label: 'ACLEDA PAY',
+              description: 'Pay with ACLEDA mobile app',
+              assetPath: 'assets/ac.png',
+            ),
+            _buildPaymentOption(
+              label: 'ABA PAY',
+              description: 'Pay with ABA mobile app',
+              assetPath: 'assets/aba.png',
+            ),
+            _buildPaymentOption(
+              label: 'WING PAY',
+              description: 'Pay with WING mobile app',
+              assetPath: 'assets/wing.png',
+            ),
+
+            const SizedBox(height: 16),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Offline Payment', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            _buildPaymentOption(
+              label: 'Cash',
+              description: 'Pay with cash on delivery',
+              assetPath: 'assets/cash.png',
+            ),
+
+            const SizedBox(height: 24),
+            SizedBox(
+              width: 300,
+              height: 48,
+              child: ElevatedButton(
+                onPressed: _confirmSelection,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orange,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+                child: const Text('Confirm Payment Method', style: TextStyle(fontSize: 16)),
+              ),
+            ),
+            const SizedBox(height: 32),
+          ],
+        ),
       ),
     );
   }
