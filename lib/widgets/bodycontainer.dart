@@ -1,3 +1,4 @@
+import 'package:brewmate_coffee_app/views/screens/Detail_screen.dart';
 import 'package:brewmate_coffee_app/widgets/customBottomNavBar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -129,7 +130,8 @@ class _BodyContainerState extends State<BodyContainer> {
           return CardWidget(
             product: products[index],
             onAddToCart: () {
-              // TODO: Add to cart logic here
+              Navigator.push(context, MaterialPageRoute(builder: (_)
+              => DetailScreen(productId: products[index].id)));
             },
           );
         },

@@ -42,6 +42,16 @@ dependencies:
   badges: ^3.1.2
   flutter_svg: ^2.1.0
   firebase_auth: ^5.6.0
+  geolocator: ^13.0.2
+  geocoding: ^4.0.0
+  google_maps_flutter: ^2.10.1
+  shared_preferences: ^2.3.3
+  http: ^1.4.0
+  image_picker: ^1.1.2
+  mime: ^2.0.0
+  path: ^1.9.0
+  http_parser: ^4.0.2
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_lints: ^3.0.0
@@ -88,8 +98,8 @@ flutter:
     - assets/vattanak.png
     - assets/banner.png
     - assets/appLogo.png
-    - assets/products/
     - assets/icons/
+    - assets/images/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
