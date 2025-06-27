@@ -1,6 +1,6 @@
 // paymentsummary.dart
 import 'package:brewmate_coffee_app/provider/cartitem_provider.dart';
-import 'package:brewmate_coffee_app/views/paymentMethod/payment_method.dart';
+import 'package:brewmate_coffee_app/widgets/payment_method.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:brewmate_coffee_app/provider/orderprovider.dart';

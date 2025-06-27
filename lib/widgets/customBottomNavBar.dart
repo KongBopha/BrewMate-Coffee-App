@@ -1,5 +1,5 @@
 import 'package:brewmate_coffee_app/provider/cartitem_provider.dart';
-import 'package:brewmate_coffee_app/views/myfavorite/myfavorite.dart';
+import 'package:brewmate_coffee_app/views/screens/myfavorite.dart';
 import 'package:brewmate_coffee_app/views/screens/cartscreen.dart';
 import 'package:brewmate_coffee_app/views/screens/home_screen.dart';
 import 'package:brewmate_coffee_app/views/screens/notification_screen.dart';

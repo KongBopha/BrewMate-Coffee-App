@@ -6,6 +6,10 @@ class FavoriteProvider extends ChangeNotifier {
   final List<String> _favoriteItems = [];
   List<String> get favoriteItems => List.unmodifiable(_favoriteItems);
 
+  bool isFavorite(String productId) {
+    return _favoriteItems.contains(productId);
+  }
+
   Future<CollectionReference<Map<String, dynamic>>?> _getFavoritesCollection() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) {
@@ -18,7 +22,6 @@ class FavoriteProvider extends ChangeNotifier {
         .collection('favorites');
   }
 
-  //  Add to favorites
   Future<void> addToFavorites(String productId) async {
     final favoritesCollection = await _getFavoritesCollection();
     if (favoritesCollection == null) return;
@@ -28,7 +31,6 @@ class FavoriteProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Fetch favorites
   Future<void> fetchFavorites() async {
     final favoritesCollection = await _getFavoritesCollection();
     if (favoritesCollection == null) return;
@@ -41,7 +43,6 @@ class FavoriteProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Remove from favorites
   Future<void> removeFromFavorites(String productId) async {
     final favoritesCollection = await _getFavoritesCollection();
     if (favoritesCollection == null) return;
@@ -57,3 +58,4 @@ class FavoriteProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
+

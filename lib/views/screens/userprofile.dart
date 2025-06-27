@@ -9,26 +9,18 @@ import 'package:brewmate_coffee_app/provider/userprovider.dart';
 import 'package:brewmate_coffee_app/models/appuser.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  AppUser? user;
   bool isUploading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    user = userProvider.user;
-  }
 
   Future<void> _uploadAndSaveImage() async {
     final picker = ImagePicker();
-    final picked = await picker.pickImage(source: ImageSource.gallery);
+    final picked = await picker.pickImage(source: ImageSource.camera);
     if (picked == null) return;
 
     setState(() => isUploading = true);
@@ -42,114 +34,247 @@ class _ProfileScreenState extends State<ProfileScreen> {
         'image': imgUrl,
       });
 
-      final updatedUser = user!.copyWith(image: imgUrl);
-      Provider.of<UserProvider>(context, listen: false).setUser(updatedUser);
-
-      setState(() {
-        user = updatedUser;
-        isUploading = false;
-      });
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      final currentUser = userProvider.user;
+      if (currentUser != null) {
+        final updatedUser = currentUser.copyWith(
+          profileImageUrl: imgUrl,
+        );
+        userProvider.setUser(updatedUser);
+      }
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Profile image updated')),
       );
-    } else {
-      setState(() => isUploading = false);
-    }
-  }
-
-  void _logout() async {
-    await FirebaseAuth.instance.signOut();
-    Provider.of<UserProvider>(context, listen: false).clearUser();
-    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (user == null) {
-      return const Center(child: CircularProgressIndicator());
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Your Information'),
-        centerTitle: true,
-        elevation: 0,
+    setState(() => isUploading = false);
+  }
+
+  Future<void> _showEditProfileSheet() async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final user = userProvider.user!;
+    final nameController = TextEditingController(text: user.name);
+    final emailController = TextEditingController(text: user.email);
+    final addressController = TextEditingController(text: user.address ?? '');
+
+    await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+          top: 24,
+          left: 16,
+          right: 16,
+        ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            // Avatar
+            const Text("✏️ Edit Profile",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 16),
             GestureDetector(
               onTap: _uploadAndSaveImage,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 45,
-                    backgroundColor: Colors.grey[300],
-                    backgroundImage:
-                        user!.profileImageUrl != null ? NetworkImage(user!.profileImageUrl!) : null,
-                    child: user!.profileImageUrl == null
-                        ? const Icon(Icons.person, size: 45, color: Colors.grey)
-                        : null,
-                  ),
-                  if (isUploading)
-                    const CircularProgressIndicator(
-                      color: Colors.orange,
-                      strokeWidth: 3,
-                    ),
-                ],
+              child: CircleAvatar(
+                radius: 40,
+                backgroundImage: user.profileImageUrl != null
+                    ? NetworkImage('${user.profileImageUrl!}?v=${DateTime.now().millisecondsSinceEpoch}')
+                    : null,
+                backgroundColor: Colors.orange.withOpacity(0.2),
+                child: user.profileImageUrl == null
+                    ? const Icon(Icons.person, size: 40, color: Colors.orange)
+                    : null,
               ),
             ),
-            const SizedBox(height: 10),
-
-            // Name & Email
-            Text(
-              user!.name,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            const SizedBox(height: 16),
+            TextField(
+              controller: nameController,
+              decoration: const InputDecoration(labelText: 'Name'),
             ),
-            Text(user!.email, style: const TextStyle(color: Colors.grey)),
-
-            const SizedBox(height: 30),
-
-            // Menu
-            _buildMenuItem(context, Icons.edit, 'Edit Profile'),
-            const Divider(height: 1),
-            _buildMenuItem(context, Icons.lock, 'Change Password'),
-            const Divider(height: 1),
-            _buildMenuItem(context, Icons.history, 'Order History'),
-            const Divider(height: 1),
-            _buildMenuItem(context, Icons.contact_support, 'Contact Us'),
-            const Divider(height: 1),
-
-            const SizedBox(height: 30),
-
-            // Logout Button
+            TextField(
+              controller: emailController,
+              decoration: const InputDecoration(labelText: 'Email'),
+            ),
+            TextField(
+              controller: addressController,
+              decoration: const InputDecoration(labelText: 'Address'),
+            ),
+            const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: _logout,
+              onPressed: () async {
+                final uid = FirebaseAuth.instance.currentUser!.uid;
+                await FirebaseFirestore.instance.collection('users').doc(uid).update({
+                  'name': nameController.text.trim(),
+                  'email': emailController.text.trim(),
+                  'address': addressController.text.trim(),
+                });
+
+                final updatedUser = user.copyWith(
+                  name: nameController.text.trim(),
+                  email: emailController.text.trim(),
+                  address: addressController.text.trim(),
+                );
+
+                userProvider.setUser(updatedUser);
+
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Profile updated')),
+                );
+              },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
+                backgroundColor: Colors.orange,
+                foregroundColor: Colors.white,
               ),
-              child: const Text('Log out', style: TextStyle(fontSize: 16)),
+              child: const Text('Save Changes'),
             ),
+            const SizedBox(height: 16),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildMenuItem(BuildContext context, IconData icon, String title) {
-    return ListTile(
-      leading: Icon(icon, color: Colors.blue),
-      title: Text(title),
-      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-      onTap: () => print('$title tapped'),
+  void _logout() async {
+    await FirebaseAuth.instance.signOut();
+    Provider.of<UserProvider>(context, listen: false).clearUser();
+    Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context).user;
+    if (user == null) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Your Information', style: TextStyle(color: Colors.white)),
+        centerTitle: true,
+        backgroundColor: Colors.orange,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 50,
+                  backgroundColor: Colors.orange.withOpacity(0.2),
+                  backgroundImage: user.profileImageUrl != null
+                      ? NetworkImage('${user.profileImageUrl!}?v=${DateTime.now().millisecondsSinceEpoch}')
+                      : null,
+                  child: user.profileImageUrl == null
+                      ? const Icon(Icons.person, size: 50, color: Colors.orange)
+                      : null,
+                ),
+                Positioned(
+                  bottom: 0,
+                  right: 4,
+                  child: GestureDetector(
+                    onTap: _uploadAndSaveImage,
+                    child: const CircleAvatar(
+                      radius: 16,
+                      backgroundColor: Colors.orange,
+                      child: Icon(Icons.camera_alt, size: 18, color: Colors.white),
+                    ),
+                  ),
+                ),
+                if (isUploading)
+                  const Positioned.fill(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(color: Colors.orange),
+                    ),
+                  ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Text(user.name, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            Text(user.email, style: const TextStyle(color: Colors.orange, fontSize: 16)),
+            const SizedBox(height: 32),
+
+            ListTile(
+              leading: const Icon(Icons.edit, color: Colors.orange),
+              title: const Text("Edit Profile", style: TextStyle(fontWeight: FontWeight.w600)),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.orange),
+              onTap: _showEditProfileSheet,
+            ),
+            const Divider(height: 1),
+
+            ListTile(
+              leading: const Icon(Icons.lock, color: Colors.orange),
+              title: const Text("Change Password", style: TextStyle(fontWeight: FontWeight.w600)),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.orange),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    title: const Text("🔒 Change Password"),
+                    content: const Text("Password change functionality will be added."),
+                    actions: [
+                      TextButton(onPressed: () => Navigator.pop(context), child: const Text("OK"))
+                    ],
+                  ),
+                );
+              },
+            ),
+            const Divider(height: 1),
+
+            ListTile(
+              leading: const Icon(Icons.history, color: Colors.orange),
+              title: const Text("Order History", style: TextStyle(fontWeight: FontWeight.w600)),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.orange),
+              onTap: () {
+                Navigator.pushNamed(context, '/orderhistory');
+              },
+            ),
+            const Divider(height: 1),
+
+            ListTile(
+              leading: const Icon(Icons.contact_support, color: Colors.orange),
+              title: const Text("Contact Us", style: TextStyle(fontWeight: FontWeight.w600)),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.orange),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    title: const Text("📞 Contact Us"),
+                    content: const Text("Reach us at: support@brewmate.com"),
+                    actions: [
+                      TextButton(onPressed: () => Navigator.pop(context), child: const Text("OK"))
+                    ],
+                  ),
+                );
+              },
+            ),
+            const Divider(height: 1),
+
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: _logout,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              ),
+              child: const Text('Log out', style: TextStyle(fontSize: 18)),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

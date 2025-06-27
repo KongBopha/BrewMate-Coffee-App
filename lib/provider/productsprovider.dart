@@ -17,8 +17,6 @@ class ProductProvider with ChangeNotifier {
   /// Fetch all products from Firestore (initial load or 'All' tab)
   Future<void> fetchAllProducts() async {
     _isLoading = true;
-    notifyListeners();
-
     try {
       final snapshot = await _productCollection.get();
       _allProducts.clear();
@@ -62,26 +60,29 @@ class ProductProvider with ChangeNotifier {
     _isLoading = false;
     notifyListeners();
   }
-  Future<Product?> fetchProductbyId(String productId) async{
-    _isLoading = true;
-    notifyListeners();
+Future<Product?> fetchProductbyId(String productId) async {
+  try {
+    final doc = await _productCollection.doc(productId).get();
 
-    try{
-      final doc= await _productCollection.doc(productId).get();
-      
-      if(doc.exists){
-        return Product.fromFirestore(doc);
-      }
-      else{
-        print('Product with ID $productId not found.');
-        return null;
-      }
-    }catch(e){
-      print('Error filtering products: $e');
-      throw Exception('Error fetching product by id: $e');
-    } finally {
-    _isLoading = false;
-    notifyListeners();
+    if (doc.exists) {
+      return Product.fromFirestore(doc);
+    } else {
+      print('Product with ID $productId not found.');
+      return null;
+    }
+  } catch (e) {
+    print('Error fetching product by id: $e');
+    throw Exception('Error fetching product by id: $e');
   }
+}
+void filterProductsByName(String query) {
+  if (query.isEmpty) {
+    _displayedProducts = List.from(_allProducts); // Reset to all
+  } else {
+    _displayedProducts = _allProducts.where((product) =>
+      product.name.toLowerCase().contains(query.toLowerCase())).toList();
   }
+
+  notifyListeners();
+}
 }

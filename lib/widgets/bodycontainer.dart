@@ -34,7 +34,7 @@ class _BodyContainerState extends State<BodyContainer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 40),
-                _buildSearchBar(),
+                _buildSearchBar(context),
                 const SizedBox(height: 20),
                 _buildBannerImage(),
               ],
@@ -49,7 +49,7 @@ class _BodyContainerState extends State<BodyContainer> {
               ? const Center(child: CircularProgressIndicator())
               : _buildProductGrid(products),
         ),
-         
+            
         
       ],
     );
@@ -63,33 +63,38 @@ class _BodyContainerState extends State<BodyContainer> {
     );
   }
 
-  Widget _buildSearchBar() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        height: 50,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 4,
-              color: Colors.black.withOpacity(0.1),
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: const Row(
-          children: [
-            Icon(Icons.search, color: Colors.grey),
-            SizedBox(width: 10),
-            Text("Search Coffee", style: TextStyle(color: Colors.grey)),
-          ],
+Widget _buildSearchBar(BuildContext context) {
+  final productProvider = Provider.of<ProductProvider>(context, listen: false);
+
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20),
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 4,
+            color: Colors.black.withOpacity(0.1),
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: TextField(
+        onChanged: (value) {
+          productProvider.filterProductsByName(value);
+        },
+        decoration: const InputDecoration(
+          icon: Icon(Icons.search, color: Colors.grey),
+          hintText: 'Search Coffee',
+          border: InputBorder.none,
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildBannerImage() {
     return Padding(

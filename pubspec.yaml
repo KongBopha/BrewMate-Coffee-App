@@ -52,6 +52,7 @@ dependencies:
   path: ^1.9.0
   http_parser: ^4.0.2
   path_provider: ^2.1.5
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_lints: ^3.0.0
@@ -100,6 +101,7 @@ flutter:
     - assets/appLogo.png
     - assets/icons/
     - assets/images/
+    - assets/cash.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

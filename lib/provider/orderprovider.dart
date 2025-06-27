@@ -21,7 +21,7 @@ class OrderProvider with ChangeNotifier {
 
   // ──────────────────────────────
   // SETTERS FOR ADDRESS AND NOTE
-  // ──────────────────────────────
+  // ──────────────────────────────  
 
   void setAddress(String address) {
     _userAddress = address;

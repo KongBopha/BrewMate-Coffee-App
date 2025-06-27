@@ -2,11 +2,13 @@ import 'package:brewmate_coffee_app/firebase_options.dart';
 import 'package:brewmate_coffee_app/provider/cartitem_provider.dart';
 import 'package:brewmate_coffee_app/provider/categoryprovider.dart';
 import 'package:brewmate_coffee_app/provider/datauploader.dart';
+import 'package:brewmate_coffee_app/provider/favoriteprovider.dart';
 import 'package:brewmate_coffee_app/provider/orderprovider.dart';
 import 'package:brewmate_coffee_app/provider/productsprovider.dart';
 import 'package:brewmate_coffee_app/provider/userprovider.dart';
 import 'package:brewmate_coffee_app/views/screens/cartscreen.dart';
 import 'package:brewmate_coffee_app/views/screens/checkoutscreen.dart';
+import 'package:brewmate_coffee_app/views/screens/orderhistory.dart';
 import 'package:brewmate_coffee_app/views/screens/splashscreen.dart';
 import 'package:brewmate_coffee_app/views/auth/login_screen.dart';
 import 'package:brewmate_coffee_app/views/auth/register_screen.dart';
@@ -32,6 +34,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider.value(value: cartItemProvider),
         ChangeNotifierProvider(create: (_) => OrderProvider()),
+        ChangeNotifierProvider(create: (_) => FavoriteProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -47,6 +50,7 @@ void main() async {
           '/cart': (context) => const CartScreen(),
           '/checkout': (context) => const CheckoutScreen(),
           '/profile': (context) => const ProfileScreen(),
+           '/orderhistory': (context) => const OrderHistoryScreen(),
         },
       ),
     ),
