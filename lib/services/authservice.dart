@@ -80,7 +80,7 @@ class AuthService {
     return null;
   }
 
-  // Update user profile (e.g., name, address, profileImageUrl)
+  // Update user profile 
   Future<void> updateUserProfile(String uid, Map<String, dynamic> updates) async {
     try {
       await _firestore.collection('users').doc(uid).update(updates);

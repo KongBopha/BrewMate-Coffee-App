@@ -24,6 +24,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   void initState() {
     super.initState();
     _setDefaultPickupLocation();
+
+    // delay to build widget first
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+    Provider.of<OrderProvider>(context, listen: false).setPickupAddress();
+    });
   }
 
   void _setDefaultPickupLocation() {

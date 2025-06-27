@@ -95,7 +95,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // ignore: avoid_unnecessary_containers
                     Container(
                       child: Row(
                         children: [
@@ -155,7 +154,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // ignore: avoid_unnecessary_containers
+                  
                     Container(
                       child: Row(
                         children: [

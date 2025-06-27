@@ -42,17 +42,18 @@ class OrderItems {
 
   factory OrderItems.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
+
     return OrderItems(
       orderId: doc.id,
       items: (data['items'] as List)
           .map((item) => CartItem.fromJson(item))
           .toList(),
-      subtotal: data['subtotal'],
-      totalPrice: data['totalPrice'],
-      status: data['status'],
-      createdAt: DateTime.parse(data['createdAt']),
-      deliveryFee: data['deliveryFee'] ?? 0.0,
-      deliveryOption: data['deliveryOption'],
+      subtotal: (data['subtotal'] ?? 0).toDouble(),
+      totalPrice: (data['totalPrice'] ?? 0).toDouble(),
+      status: data['status'] ?? 'pending',
+      createdAt: DateTime.tryParse(data['createdAt'] ?? '') ?? DateTime.now(),
+      deliveryFee: (data['deliveryFee'] ?? 0).toDouble(),
+      deliveryOption: data['deliveryOption'] ?? 'pickup',
       deliveryAddress: data['deliveryAddress'],
       paymentMethod: data['paymentmethod'],
     );

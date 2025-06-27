@@ -17,7 +17,6 @@ class CategoryProvider with ChangeNotifier {
 
   Future<void> fetchCategories() async {
     _isLoading = true;
-    notifyListeners();
 
     try {
       final snapshot = await _categoryCollection.get();

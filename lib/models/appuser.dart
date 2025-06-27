@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class AppUser {
   final String id;
   final String name;
@@ -17,13 +19,14 @@ class AppUser {
     AppUser copyWith({
     String? name,
     String? email,
-    String? image,
+    String? profileImageUrl,
+    String? address,
   }) {
     return AppUser(
       id: id,  
       name: name ?? this.name,
       email: email ?? this.email,
-      profileImageUrl: image ?? profileImageUrl,
+      profileImageUrl: profileImageUrl ?? profileImageUrl,
     );
   }
   factory AppUser.fromFirestore(String id, Map<String, dynamic> data) {
@@ -36,6 +39,17 @@ class AppUser {
       profileImageUrl: data['profileImageUrl'],
     );
   }
+  factory AppUser.fromDocument(DocumentSnapshot doc) {
+  final data = doc.data() as Map<String, dynamic>;
+  return AppUser(
+    id: doc.id,
+    name: data['name'] ?? '',
+    email: data['email'] ?? '',
+    phoneNumber: data['phoneNumber'],
+    address: data['address'],
+    profileImageUrl: data['image'],
+  );
+}
 
   Map<String, dynamic> toJson() {
     return {
